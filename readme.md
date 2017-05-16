@@ -1,4 +1,5 @@
-# win-clipboard
+# win-clipboard [![Build status](https://ci.appveyor.com/api/projects/status/8i8pd3y7u50a0ugf?svg=true)](https://ci.appveyor.com/project/floatdrop/win-clipboard)
+
 
 > Access the Windows clipboard (copy/paste)
 

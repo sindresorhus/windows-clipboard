@@ -1,0 +1,4 @@
+build: off
+shallow_clone: true
+test_script:
+  - build.bat
