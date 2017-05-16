@@ -1,8 +1,8 @@
-echo Hello World | copy.exe
+copy.exe unicorn
 paste.exe > temp.txt
 set /p VAR=<temp.txt
 
-if "%VAR%" NEQ "Hello World" (
-	echo "<%VAR%> is not equal <Hello World>"
+if "%VAR%" NEQ "unicorn" (
+	echo "<%VAR%> is not equal <unicorn>"
 	EXIT /B 1
 )
