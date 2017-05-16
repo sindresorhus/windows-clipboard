@@ -5,3 +5,9 @@ build_script:
   - build.bat
 test_script:
   - test.bat
+artifacts:
+  - path: copy.exe
+    name: Copy binary
+
+  - path: paste.exe
+    name: Paste binary
