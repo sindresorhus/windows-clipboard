@@ -23,7 +23,6 @@ for /L %%i in (1, 1, 10) do type big.txt>>big.txt
 
 copy.exe < big.txt
 paste.exe > temp.txt
-set /p VAR=<temp.txt
 
 fc /b big.txt temp.txt > nul
 if errorlevel 1 (
@@ -37,7 +36,6 @@ echo Lines>>multiline.txt
 
 copy.exe < multiline.txt
 paste.exe > temp.txt
-set /p VAR=<temp.txt
 
 fc /b multiline.txt temp.txt > nul
 if errorlevel 1 (
