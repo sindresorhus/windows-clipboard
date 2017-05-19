@@ -51,6 +51,8 @@ int wmain() {
 		free(prev);
 	}
 
+	lpData[cbSize] = 0;
+
 	GlobalUnlock(hgMem);
 	OpenClipboard(NULL);
 	EmptyClipboard();

@@ -8,7 +8,7 @@ int wmain() {
 	HANDLE clip = GetClipboardData(CF_UNICODETEXT);
 	if (clip) {
 		_setmode(_fileno(stdout), _O_U8TEXT);
-		wprintf(L"%s\n", clip);
+		fputws(clip, stdout);
 	}
 
 	CloseClipboard();
