@@ -42,3 +42,15 @@ if errorlevel 1 (
 	echo "multiline.txt content is not equal after paste"
 	EXIT /B 1
 )
+
+:: Test unicode string
+echo ĀāĂăĄąĆćĈĉĊċČčĎ ፰፱፲፳፴፵፶፷፸፹፺፻፼ æøå ± 你好 🦄❤️🤘🐑💩 >unicode.txt
+
+copy.exe < unicode.txt
+paste.exe > temp.txt
+
+fc /b unicode.txt temp.txt > nul
+if errorlevel 1 (
+	echo "unicode.txt content is not equal after paste"
+	EXIT /B 1
+)
