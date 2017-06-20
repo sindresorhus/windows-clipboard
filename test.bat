@@ -44,13 +44,61 @@ if errorlevel 1 (
 )
 
 :: Test unicode string
-echo ĀāĂăĄąĆćĈĉĊċČčĎ ፰፱፲፳፴፵፶፷፸፹፺፻፼ æøå ± 你好 🦄❤️🤘🐑💩 >unicode.txt
+echo ĀāĂăĄąĆćĈĉĊċČčĎ>unicode.txt
 
 copy.exe < unicode.txt
 paste.exe > temp.txt
 
 fc /b unicode.txt temp.txt > nul
 if errorlevel 1 (
-	echo "unicode.txt content is not equal after paste"
+	echo "unicode.txt content is not equal after paste (1)"
+	EXIT /B 1
+)
+
+:: Test unicode string
+echo ፰፱፲፳፴፵፶፷፸፹፺፻፼>unicode.txt
+
+copy.exe < unicode.txt
+paste.exe > temp.txt
+
+fc /b unicode.txt temp.txt > nul
+if errorlevel 1 (
+	echo "unicode.txt content is not equal after paste (2)"
+	EXIT /B 1
+)
+
+:: Test unicode string
+echo ±>unicode.txt
+
+copy.exe < unicode.txt
+paste.exe > temp.txt
+
+fc /b unicode.txt temp.txt > nul
+if errorlevel 1 (
+	echo "unicode.txt content is not equal after paste (3)"
+	EXIT /B 1
+)
+
+:: Test unicode string
+echo 你好>unicode.txt
+
+copy.exe < unicode.txt
+paste.exe > temp.txt
+
+fc /b unicode.txt temp.txt > nul
+if errorlevel 1 (
+	echo "unicode.txt content is not equal after paste (4)"
+	EXIT /B 1
+)
+
+:: Test unicode string
+echo 你好 🦄❤️🤘🐑💩 >unicode.txt
+
+copy.exe < unicode.txt
+paste.exe > temp.txt
+
+fc /b unicode.txt temp.txt > nul
+if errorlevel 1 (
+	echo "unicode.txt content is not equal after paste (5)"
 	EXIT /B 1
 )
