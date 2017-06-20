@@ -38,7 +38,7 @@ int wmain() {
 		return 1;
 	}
 
-	HANDLE hgMem = GlobalAlloc(GMEM_MOVEABLE, cbSize + sizeof(wchar_t));
+	HANDLE hgMem = GlobalAlloc(GMEM_MOVEABLE | GMEM_ZEROINIT, cbSize + sizeof(wchar_t));
 	LPBYTE lpData = GlobalLock(hgMem);
 
 	cbSize = 0;
