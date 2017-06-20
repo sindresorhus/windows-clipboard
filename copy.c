@@ -38,7 +38,7 @@ int wmain() {
 		return 1;
 	}
 
-	HANDLE hgMem = GlobalAlloc(GMEM_MOVEABLE, cbSize + 1);
+	HANDLE hgMem = GlobalAlloc(GMEM_MOVEABLE, cbSize + sizeof(wchar_t));
 	LPBYTE lpData = GlobalLock(hgMem);
 
 	cbSize = 0;
@@ -50,8 +50,6 @@ int wmain() {
 		head = head->next;
 		free(prev);
 	}
-
-	lpData[cbSize] = 0;
 
 	GlobalUnlock(hgMem);
 	OpenClipboard(NULL);
