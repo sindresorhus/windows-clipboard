@@ -1,13 +1,17 @@
 shallow_clone: true
-install:
-  - set PATH=C:\mingw-w64\x86_64-6.3.0-posix-seh-rt_v5-rev1\mingw64\bin;%PATH%
 build_script:
   - build.bat
 test_script:
   - test.bat
 artifacts:
-  - path: copy.exe
-    name: Copy binary
+  - path: Win32/copy.exe
+    name: Copy binary (Win32)
 
-  - path: paste.exe
-    name: Paste binary
+  - path: Win32/paste.exe
+    name: Paste binary (Win32)
+
+  - path: Win64/copy.exe
+    name: Copy binary (Win64)
+
+  - path: Win64/paste.exe
+    name: Paste binary (Win64)
