@@ -2,6 +2,10 @@
 #include <stdio.h>
 #include <windows.h>
 
+#ifndef _O_U8TEXT
+#define _O_U8TEXT 0x00040000
+#endif
+
 typedef struct node_tag {
 	char buffer[1024];
 	int capacity;

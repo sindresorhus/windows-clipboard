@@ -2,6 +2,10 @@
 #include <windows.h>
 #include <fcntl.h>
 
+#ifndef _O_U8TEXT
+#define _O_U8TEXT 0x00040000
+#endif
+
 int wmain() {
 	OpenClipboard(NULL);
 
