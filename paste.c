@@ -6,7 +6,7 @@
 #define _O_U8TEXT 0x00040000
 #endif
 
-int main() {
+int WinMain() {
 	OpenClipboard(NULL);
 
 	HANDLE hData = GetClipboardData(CF_UNICODETEXT);

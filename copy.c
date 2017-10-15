@@ -12,7 +12,7 @@ typedef struct node_tag {
 	struct node_tag *next;
 } node;
 
-int main() {
+int WinMain() {
 	_setmode(_fileno(stdin), _O_U8TEXT);
 
 	node *bufferList = malloc(sizeof(node));
