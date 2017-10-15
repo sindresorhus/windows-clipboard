@@ -6,11 +6,11 @@ echo "Building Win32 binaries"
 mkdir Win32
 
 windres --codepage=65001 copy-meta.rc copy-meta.o
-gcc copy.c copy-meta.o -O2 -s -o Win32/copy.exe -std=c99
+gcc copy.c copy-meta.o -O2 -s -o Win32/copy.exe -std=gnu99
 del copy-meta.o
 
 windres --codepage=65001 paste-meta.rc paste-meta.o
-gcc paste.c paste-meta.o -O2 -s -o Win32/paste.exe -std=c99
+gcc paste.c paste-meta.o -O2 -s -o Win32/paste.exe -std=gnu99
 del paste-meta.o
 
 set PATH=C:\mingw-w64\x86_64-6.3.0-posix-seh-rt_v5-rev1\mingw64\bin;%PATH%
