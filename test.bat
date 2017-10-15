@@ -1,5 +1,7 @@
 @echo off
 
+set PATH=Win64;%PATH%
+
 :: Test small string
 echo unicorn| copy.exe
 paste.exe > temp.txt
