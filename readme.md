@@ -22,10 +22,10 @@ unicorn
 
 ## Build
 
-Install [`MinGW-w64`](https://sourceforge.net/projects/mingw-w64/) and run:
+Install [`Rust`](https://rustup.rs) and run:
 
 ```
-$ build
+$ cargo build --release
 ```
 
 
