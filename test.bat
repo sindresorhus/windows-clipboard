@@ -1,8 +1,8 @@
 @echo off
 
 :: Test small string
-echo unicorn| %~dp0target\%TARGET%\release\copy.exe
-%~dp0target\%TARGET%\release\paste.exe > temp.txt
+echo unicorn| %~dp0target\%TARGET%\release\clipboard.exe --copy
+%~dp0target\%TARGET%\release\clipboard.exe --paste > temp.txt
 set /p VAR=<temp.txt
 
 if "%VAR%" NEQ "unicorn" (
@@ -21,8 +21,8 @@ for /L %%i in (1, 1, 9) do type big.txt>>big.txt
 :: Expand to 1 MB
 for /L %%i in (1, 1, 10) do type big.txt>>big.txt
 
-%~dp0target\%TARGET%\release\copy.exe < big.txt
-%~dp0target\%TARGET%\release\paste.exe > temp.txt
+%~dp0target\%TARGET%\release\clipboard.exe --copy < big.txt
+%~dp0target\%TARGET%\release\clipboard.exe --paste > temp.txt
 
 fc /b big.txt temp.txt > nul
 if errorlevel 1 (
@@ -34,8 +34,8 @@ if errorlevel 1 (
 echo Hello>multiline.txt
 echo Lines>>multiline.txt
 
-%~dp0target\%TARGET%\release\copy.exe < multiline.txt
-%~dp0target\%TARGET%\release\paste.exe > temp.txt
+%~dp0target\%TARGET%\release\clipboard.exe --copy < multiline.txt
+%~dp0target\%TARGET%\release\clipboard.exe --paste > temp.txt
 
 fc /b multiline.txt temp.txt > nul
 if errorlevel 1 (
@@ -46,8 +46,8 @@ if errorlevel 1 (
 :: Test unicode string
 echo ĀāĂăĄąĆćĈĉĊċČčĎ ፰፱፲፳፴፵፶፷፸፹፺፻፼ æøå ± 你好 🦄❤️🤘🐑💩 >unicode.txt
 
-%~dp0target\%TARGET%\release\copy.exe < unicode.txt
-%~dp0target\%TARGET%\release\paste.exe > temp.txt
+%~dp0target\%TARGET%\release\clipboard.exe --copy < unicode.txt
+%~dp0target\%TARGET%\release\clipboard.exe --paste > temp.txt
 
 fc /b unicode.txt temp.txt > nul
 if errorlevel 1 (

@@ -14,8 +14,8 @@ With full UTF-8 support.
 ## Usage
 
 ```
-$ copy unicorn
-$ paste
+$ clipboard --copy < echo unicorn
+$ clipboard --paste
 unicorn
 ```
 

@@ -25,8 +25,7 @@ test_script:
     )
 
 before_deploy:
-  - cargo rustc --target %TARGET% --release --bin copy -- -C lto
-  - cargo rustc --target %TARGET% --release --bin paste -- -C lto
+  - cargo rustc --target %TARGET% --release --bin clipboard -- -C lto
   - test.bat
   - ps: ci\before_deploy.ps1
 
