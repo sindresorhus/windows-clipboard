@@ -33,15 +33,16 @@ fn paste() -> std::io::Result<()> {
 fn main() {
     let args: Vec<String> = env::args().collect();
 
-    if args.len() != 1 {
+    if args.len() < 2 {
         println!("You should specify `--copy` or `--paste` mode. See `--help` for usage examples.");
         return;
     }
 
-    match &args[0] {
-        "--copy" => copy().expect("could not copy to clipboard"),
-        "--paste" => paste().expect("could not paste from clipboard"),
-        "--help" => help(),
-    }
+    let cmd = &args[1];
 
+    match &cmd[..] {
+        "--copy" => copy().expect("Error: Could not copy to clipboard"),
+        "--paste" => paste().expect("Error: Could not paste from clipboard"),
+        _ => help(),
+    }
 }
