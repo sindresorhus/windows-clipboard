@@ -14,18 +14,18 @@ With full UTF-8 support.
 ## Usage
 
 ```
-$ copy unicorn
-$ paste
+$ clipboard --copy < echo unicorn
+$ clipboard --paste
 unicorn
 ```
 
 
 ## Build
 
-Install [`MinGW-w64`](https://sourceforge.net/projects/mingw-w64/) and run:
+Install [`Rust`](https://rustup.rs) and run:
 
 ```
-$ build
+$ cargo build --release
 ```
 
 

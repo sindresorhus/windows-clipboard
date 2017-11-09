@@ -1,13 +1,43 @@
-shallow_clone: true
-install:
-  - set PATH=C:\mingw-w64\x86_64-6.3.0-posix-seh-rt_v5-rev1\mingw64\bin;%PATH%
-build_script:
-  - build.bat
-test_script:
-  - test.bat
-artifacts:
-  - path: copy.exe
-    name: Copy binary
+# see https://github.com/japaric/trust/blob/master/appveyor.yml
 
-  - path: paste.exe
-    name: Paste binary
+environment:
+  global:
+    RUST_VERSION: stable
+    CRATE_NAME: win-clipboard
+
+  matrix:
+      # MSVC
+      - TARGET: i686-pc-windows-msvc
+      - TARGET: x86_64-pc-windows-msvc
+
+install:
+  - curl -sSf -o rustup-init.exe https://win.rustup.rs/
+  - rustup-init.exe -y --default-host %TARGET% --default-toolchain %RUST_VERSION%
+  - set PATH=%PATH%;C:\Users\appveyor\.cargo\bin
+  - rustc -Vv
+  - cargo -V
+
+test_script:
+  # we don't run the "test phase" when doing deploys
+  - if [%APPVEYOR_REPO_TAG%]==[false] (
+      cargo build --target %TARGET% --release &&
+      test.bat
+    )
+
+before_deploy:
+  - cargo rustc --target %TARGET% --release --bin clipboard -- -C lto
+  - test.bat
+  - ps: ci\before_deploy.ps1
+
+deploy:
+  artifact: /.*\.zip/
+  auth_token:
+    secure: vzmP6SU3F8R5nhkHFxZgp52epM1v/YOJE4D0rt8WDol9ddNnRx+UFWbnkG1DCrHJ
+  description: ''
+  on:
+    RUST_VERSION: stable
+    appveyor_repo_tag: true
+  provider: GitHub
+
+# Building is done in the test phase, so we disable Appveyor's build phase.
+build: false
