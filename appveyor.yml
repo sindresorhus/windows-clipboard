@@ -1,4 +1,4 @@
-# see https://github.com/japaric/trust/blob/master/appveyor.yml
+# See https://github.com/japaric/trust/blob/master/appveyor.yml
 
 environment:
   global:

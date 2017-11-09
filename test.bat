@@ -10,7 +10,6 @@ if "%VAR%" NEQ "unicorn" (
 	EXIT /B 1
 )
 
-
 :: Test big string
 :: Create file with 2 bytes
 echo.>big.txt

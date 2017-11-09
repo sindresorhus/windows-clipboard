@@ -1,6 +1,5 @@
 # win-clipboard [![Build status](https://ci.appveyor.com/api/projects/status/nn44e1xj3k5erunm/branch/master?svg=true)](https://ci.appveyor.com/project/sindresorhus/win-clipboard/branch/master)
 
-
 > Access the Windows clipboard (copy/paste)
 
 With full UTF-8 support.
@@ -35,6 +34,12 @@ $ cargo build --release
 - [clipboard-cli](https://github.com/sindresorhus/clipboard-cli) - Access the system clipboard from the command-line, cross-platform
 
 
+## Maintainers
+
+- [Sindre Sorhus](https://github.com/sindresorhus)
+- [Vsevolod Strukchinsky](https://github.com/floatdrop)
+
+
 ## License
 
-MIT © [Sindre Sorhus](https://sindresorhus.com)
+MIT

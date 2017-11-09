@@ -1,3 +1,2 @@
 * text=auto
-*.c text eol=lf
-*.rc text eol=lf
+*.rs text eol=lf

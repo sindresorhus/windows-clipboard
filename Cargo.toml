@@ -1,7 +1,7 @@
 [package]
 name = "win-clipboard"
 version = "1.0.0"
-authors = ["Sindre Sorhus <https://sindresorhus.com>", "Vsevolod Strukchinsky <floatdrop@gmail.com>"]
+authors = ["Sindre Sorhus <sindresorhus@gmail.com>", "Vsevolod Strukchinsky <floatdrop@gmail.com>"]
 
 [dependencies]
 clipboard-win = "2.0.1"
