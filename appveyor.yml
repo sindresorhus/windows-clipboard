@@ -3,7 +3,7 @@
 environment:
   global:
     RUST_VERSION: stable
-    CRATE_NAME: win-clipboard
+    CRATE_NAME: windows-clipboard
 
   matrix:
       # MSVC
