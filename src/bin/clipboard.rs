@@ -1,9 +1,9 @@
-extern crate clipboard_win;
-use clipboard_win::get_clipboard_string;
-use clipboard_win::set_clipboard_string;
+#[cfg(windows)]
+use clipboard_win::{formats, get_clipboard_string, is_format_avail, set_clipboard_string};
 
 use std::env;
-use std::io::{self, Read, Write};
+#[cfg(windows)]
+use std::io::{self, Read};
 
 fn help() {
     println!("clipboard.exe – Access the Windows clipboard (copy/paste)");
@@ -18,16 +18,35 @@ fn help() {
     println!("MIT © Sindre Sorhus");
 }
 
+#[cfg(windows)]
 fn copy() -> std::io::Result<()> {
     let mut buffer = String::new();
     io::stdin().read_to_string(&mut buffer)?;
-    set_clipboard_string(&buffer)?;
+    set_clipboard_string(&buffer).map_err(|e| std::io::Error::new(std::io::ErrorKind::Other, e))?;
     Ok(())
 }
 
+#[cfg(not(windows))]
+fn copy() -> std::io::Result<()> {
+    eprintln!("This program only works on Windows.");
+    std::process::exit(1);
+}
+
+#[cfg(windows)]
 fn paste() -> std::io::Result<()> {
-    io::stdout().write(&(get_clipboard_string()?).into_bytes())?;
+    if !is_format_avail(formats::CF_UNICODETEXT) {
+        return Ok(());
+    }
+
+    let clipboard_text = get_clipboard_string().map_err(|e| std::io::Error::new(std::io::ErrorKind::Other, e))?;
+    print!("{clipboard_text}");
     Ok(())
+}
+
+#[cfg(not(windows))]
+fn paste() -> std::io::Result<()> {
+    eprintln!("This program only works on Windows.");
+    std::process::exit(1);
 }
 
 fn main() {
@@ -40,9 +59,17 @@ fn main() {
 
     let cmd = &args[1];
 
-    match &cmd[..] {
-        "--copy" => copy().expect("Error: Could not copy to clipboard"),
-        "--paste" => paste().expect("Error: Could not paste from clipboard"),
-        _ => help(),
+    let result = match &cmd[..] {
+        "--copy" => copy(),
+        "--paste" => paste(),
+        _ => {
+            help();
+            return;
+        }
+    };
+
+    if let Err(error) = result {
+        eprintln!("Error: {error}");
+        std::process::exit(1);
     }
 }

@@ -2,6 +2,9 @@
 name = "windows-clipboard"
 version = "1.0.0"
 authors = ["Sindre Sorhus <sindresorhus@gmail.com>", "Vsevolod Strukchinsky <floatdrop@gmail.com>"]
+edition = "2024"
 
 [dependencies]
-clipboard-win = "2.0.1"
+
+[target.'cfg(windows)'.dependencies]
+clipboard-win = "5.4.1"
