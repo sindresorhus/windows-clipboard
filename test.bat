@@ -43,7 +43,8 @@ if errorlevel 1 (
 )
 
 :: Test unicode string
-echo ĀāĂăĄąĆćĈĉĊċČčĎ ፰፱፲፳፴፵፶፷፸፹፺፻፼ æøå ± 你好 🦄❤️🤘🐑💩 >unicode.txt
+:: UTF-8 bytes for the unicode test text, including CRLF.
+powershell -NoProfile -Command "$bytes = [Convert]::FromBase64String('xIDEgcSCxIPEhMSFxIbEh8SIxInEisSLxIzEjcSOIOGNsOGNseGNsuGNs+GNtOGNteGNtuGNt+GNuOGNueGNuuGNu+GNvCDDpsO4w6UgwrEg5L2g5aW9IPCfpoTinaTvuI/wn6SY8J+QkfCfkqkNCg=='); [IO.File]::WriteAllBytes('unicode.txt', $bytes)"
 
 %~dp0target\%TARGET%\release\clipboard.exe --copy < unicode.txt
 %~dp0target\%TARGET%\release\clipboard.exe --paste > temp.txt
@@ -54,4 +55,4 @@ if errorlevel 1 (
 	EXIT /B 1
 )
 
-echo "✅ Tests ok"
+echo "Tests ok"
