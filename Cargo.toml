@@ -1,6 +1,6 @@
 [package]
 name = "windows-clipboard"
-version = "1.0.0"
+version = "1.1.0"
 authors = ["Sindre Sorhus <sindresorhus@gmail.com>", "Vsevolod Strukchinsky <floatdrop@gmail.com>"]
 edition = "2024"
 
