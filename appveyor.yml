@@ -6,14 +6,22 @@ environment:
     CRATE_NAME: windows-clipboard
 
   matrix:
-      # GNU
+      # Targets
       - TARGET: i686-pc-windows-gnu
+        HOST: i686-pc-windows-gnu
+        RUN_TESTS: true
       - TARGET: x86_64-pc-windows-gnu
+        HOST: x86_64-pc-windows-gnu
+        RUN_TESTS: true
+      - TARGET: aarch64-pc-windows-msvc
+        HOST: x86_64-pc-windows-msvc
+        RUN_TESTS: false
 
 install:
   - curl -sSf -o rustup-init.exe https://win.rustup.rs/
-  - rustup-init.exe -y --default-host %TARGET% --default-toolchain %RUST_VERSION%
+  - rustup-init.exe -y --default-host %HOST% --default-toolchain %RUST_VERSION%
   - set PATH=%PATH%;C:\Users\appveyor\.cargo\bin
+  - rustup target add %TARGET%
   - rustc -Vv
   - cargo -V
 
@@ -21,12 +29,12 @@ test_script:
   # we don't run the "test phase" when doing deploys
   - if [%APPVEYOR_REPO_TAG%]==[false] (
       cargo build --target %TARGET% --release &&
-      test.bat
+      if /I "%RUN_TESTS%"=="true" ( test.bat )
     )
 
 before_deploy:
   - cargo rustc --target %TARGET% --release --bin clipboard -- -C lto
-  - test.bat
+  - if /I "%RUN_TESTS%"=="true" ( test.bat )
   - ps: ci\before_deploy.ps1
 
 deploy:
