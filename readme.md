@@ -16,6 +16,12 @@ $ clipboard --paste
 unicorn
 ```
 
+> [!IMPORTANT]
+> When piping into `clipboard --copy`, stdin must be UTF-8.
+> In CMD, run `chcp 65001` first.
+> In Windows PowerShell, set `$OutputEncoding = [System.Text.Encoding]::UTF8`.
+> If your shell emits non-UTF-8, use `clip.exe` (CMD) or `Set-Clipboard` (PowerShell) instead.
+
 ## Build
 
 Install [`Rust`](https://rustup.rs) and run:
