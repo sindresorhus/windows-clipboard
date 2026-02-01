@@ -1,0 +1,35 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: windows-latest
+    strategy:
+      matrix:
+        include:
+          - target: i686-pc-windows-gnu
+            toolchain: stable-i686-pc-windows-gnu
+          - target: x86_64-pc-windows-gnu
+            toolchain: stable-x86_64-pc-windows-gnu
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Rust toolchain
+        run: rustup toolchain install ${{ matrix.toolchain }} --profile minimal
+      - name: Add target
+        run: rustup target add ${{ matrix.target }} --toolchain ${{ matrix.toolchain }}
+      - name: Build
+        run: cargo +${{ matrix.toolchain }} build --target ${{ matrix.target }} --release
+      - name: Test
+        shell: cmd
+        env:
+          TARGET: ${{ matrix.target }}
+        run: test.bat

@@ -1,0 +1,48 @@
+name: Release
+
+on:
+  release:
+    types:
+      - published
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: windows-latest
+    strategy:
+      matrix:
+        include:
+          - target: i686-pc-windows-gnu
+            toolchain: stable-i686-pc-windows-gnu
+          - target: x86_64-pc-windows-gnu
+            toolchain: stable-x86_64-pc-windows-gnu
+          - target: aarch64-pc-windows-msvc
+            toolchain: stable-x86_64-pc-windows-msvc
+            run_tests: false
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Rust toolchain
+        run: rustup toolchain install ${{ matrix.toolchain }} --profile minimal
+      - name: Add target
+        run: rustup target add ${{ matrix.target }} --toolchain ${{ matrix.toolchain }}
+      - name: Build
+        run: cargo +${{ matrix.toolchain }} rustc --target ${{ matrix.target }} --release --bin clipboard -- -C lto
+      - name: Test
+        if: matrix.run_tests != false
+        shell: cmd
+        env:
+          TARGET: ${{ matrix.target }}
+        run: test.bat
+      - name: Package and upload
+        shell: pwsh
+        env:
+          TARGET: ${{ matrix.target }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          $zip = "windows-clipboard-${{ github.ref_name }}-$Env:TARGET.zip"
+          Copy-Item "target\$Env:TARGET\release\clipboard.exe" -Destination "clipboard.exe"
+          Compress-Archive -Path "clipboard.exe" -DestinationPath $zip -Force
+          gh release upload ${{ github.ref_name }} "$zip" --clobber
